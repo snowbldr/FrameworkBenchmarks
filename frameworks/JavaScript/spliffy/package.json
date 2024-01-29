@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "main": "start.js",
   "dependencies": {
-    "@srfnstack/spliffy": "0.6.1",
+    "@srfnstack/spliffy": "1.2.0",
     "html-escaper": "3.0.3",
     "mongodb": "^4.17.0",
     "mysql2": "^2.2.5",
     "node-cache": "5.1.2",
-    "pg": "8.6.0",
-    "pg-native": "3.0.1"
+    "postgres": "^3.4.3"
   }
 }
