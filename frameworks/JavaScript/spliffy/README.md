@@ -3,7 +3,7 @@
 ### Test Type Implementation Source Code
 
 * [JSON](www/json.rt.js)
-* [PLAINTEXT](www/plaintext.rt.js)
+* [PLAINTEXT](www/plaintext.rt.mjs)
 * [DB](www/db.rt.js)
 * [QUERY](www/queries.rt.js)
 * [CACHED QUERY](www/cached-worlds.rt.js)

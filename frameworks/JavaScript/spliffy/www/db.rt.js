@@ -13,11 +13,11 @@ if (process.env.DATABASE === 'postgres') {
     // Default to camelCase for MongoDB and MySQL
     serializer = mongoMysqlWorldObjectSerializer;
 }
+const headers = { server: 'spliffy', 'content-type': 'application/json' };
+
 module.exports = {
-    GET: async ({ res }) => {
+    GET: async () => {
         const row = await db.worldById(randomId());
-        res.headers['server'] = 'spliffy';
-        res.headers['content-type'] = 'application/json';
-        return serializer(row);
+        return { headers, body: serializer(row) };
     }
 };

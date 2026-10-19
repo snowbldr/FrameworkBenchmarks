@@ -1,8 +1,10 @@
 const db = require('../db')
 const { parseCount, randomUniqueIds } = require("../fn");
 
+const headers = { server: 'spliffy', 'content-type': 'application/json' };
+
 module.exports = {
-    GET: async ({ url, res }) => {
+    GET: async ({ url }) => {
         const count = parseCount(url.query.queries);
         const ids = randomUniqueIds(count)
         const results = [];
@@ -10,8 +12,6 @@ module.exports = {
             results.push(db.worldById(ids[i]));
         }
         const worlds = await Promise.all(results);
-        res.headers['server'] = 'spliffy';
-        res.headers['content-type'] = 'application/json';
-        return JSON.stringify(worlds);
+        return { headers, body: JSON.stringify(worlds) };
     }
 }

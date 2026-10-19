@@ -20,8 +20,10 @@ function sortByMessage(arr) {
     return arr
 }
 
+const headers = { server: 'spliffy', 'content-type': 'text/html; charset=utf-8' };
+
 module.exports = {
-    GET: async ({ res }) => {
+    GET: async () => {
         let fortunes = await db.allFortunes()
         fortunes.push(runTimeFortune())
         sortByMessage(fortunes)
@@ -32,8 +34,6 @@ module.exports = {
         }
         html += '</table></body></html>';
 
-        res.headers['server'] = 'spliffy';
-        res.headers['content-type'] = 'text/html; charset=utf-8';
-        return html;
+        return { headers, body: html };
     }
 }

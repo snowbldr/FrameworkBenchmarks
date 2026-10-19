@@ -5,8 +5,10 @@ const db = require('../db')
 if(db.allWorlds){
     db.allWorlds().then( worlds => worlds.forEach( world => worldCache.set( world.id, world ) ) )
 }
+const headers = { server: 'spliffy', 'content-type': 'application/json' };
+
 module.exports = {
-    GET: async ({ url, res }) => {
+    GET: async ({ url }) => {
         const count = parseCount(url.query.count);
         const ids = randomUniqueIds(count)
         const results = [];
@@ -14,8 +16,6 @@ module.exports = {
             results.push(worldCache.get(ids[i]));
         }
         const worlds = await Promise.all(results);
-        res.headers['server'] = 'spliffy';
-        res.headers['content-type'] = 'application/json';
-        return JSON.stringify(worlds);
+        return { headers, body: JSON.stringify(worlds) };
     }
 }

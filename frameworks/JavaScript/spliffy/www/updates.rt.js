@@ -1,8 +1,10 @@
 const db = require('../db')
 const { parseCount, randomId } = require("../fn");
 
+const headers = { server: 'spliffy', 'content-type': 'application/json' };
+
 module.exports = {
-    GET: async ({ url, res }) => {
+    GET: async ({ url }) => {
         const count = parseCount(url.query.queries);
         const results = [];
         for (let i = 0; i < count; i++) {
@@ -12,14 +14,12 @@ module.exports = {
         for (let i = 0; i < count; i++) {
             worlds[i].randomNumber = randomId();
         }
-        res.headers['server'] = 'spliffy';
-        res.headers['content-type'] = 'application/json';
 
         if (worlds.length === 0) {
-            return JSON.stringify([]);
+            return { headers, body: JSON.stringify([]) };
         }
 
         await db.bulkUpdateWorld(worlds);
-        return JSON.stringify(worlds);
+        return { headers, body: JSON.stringify(worlds) };
     }
 }
